@@ -131,10 +131,34 @@ The core implementation of **ASSG** is located in:
 
 - my_node.py  →  class ASSGrad (ASSG for Atan), ASSGrad_R (ASSG for Rectangular), ASSGrad_T (ASSG for Triangular), ASSGrad_S (ASSG for Sigmoid),  ASSGrad_G (ASSG for Gaussian)
 
-
 We provide a unified interface to switch the backpropagation (surrogate gradient) behavior: 
 
 > model.module.set_backpropagation(...)
+
+The ASSG_SAPGD class in attack.py implements the attack using ASSG together with SAPGD. To use ASSG during the attack, it is necessary to initialize the ASSG iterations before entering the main attack loop attack_single_run by calling:
+
+```
+self.model.module.set_backpropagation(
+    'bptt',
+    self.device,
+    alpha=self.a,
+    relax=self.relax,
+    beta_1=self.beta_1,
+    beta_2=self.beta_2,
+    SG=self.SG
+)
+```
+
+After attack_single_run, the following call should be executed to reset the surrogate gradient parameter $\alpha$ to a scalar value:
+
+```
+self.model.module.set_backpropagation(
+    'bptt',
+    self.device,
+    alpha=self.a,
+    SG='atan'
+)
+```
 
 ---
 
