@@ -120,7 +120,7 @@ python evaluate.py --attack_type assg-sapgd --batch_size 256 --worker 4 --node_t
 python evaluate.py --attack_type abla_all --batch_size 256 --worker 4 --node_type LIF --network SEWResNet19C --pretrain AT/weight_c.pth --device_ids 2 --time_step 4 --dataset cifar10
 ```
 
-To obtain the **best attack success rate (ASR)**, we recommend selecting the optimal `alpha` via **ternary search** over a predefined range, e.g. [0.6, 0.98] for .
+To obtain the **best attack success rate (ASR)**, we recommend selecting the optimal `alpha` via **ternary search** over a predefined range.
 
 You will observe a large ASR gap consistent with the paper. 
 
